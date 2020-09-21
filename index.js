@@ -2,11 +2,11 @@
 var express = require('express');
 var app = express();
 const path = require('path');
+const fs = require('fs');
 
 // IBM STT init and config
 const { IamAuthenticator } = require('ibm-watson/auth');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
-const fs = require('fs');
 
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({
@@ -29,25 +29,24 @@ const params = {
 const recognizeStream = speechToText.recognizeUsingWebSocket(params);
 var audioFile = 'sample.mp3'
 fs.createReadStream('audios/' + audioFile).pipe(recognizeStream)
-recognizeStream.on('data', function(event) { onEvent('Data:', event, audioFile); });
-recognizeStream.on('error', function(event) { onEvent('Error:', event, audioFile); });
-recognizeStream.on('close', function(event) { onEvent('Close:', event, audioFile); });
+recognizeStream.on('data', function(event) { onEvent('Data', event, audioFile); });
+recognizeStream.on('error', function(event) { onEvent('Error', event, audioFile); });
+recognizeStream.on('close', function(event) { onEvent('Close', event, audioFile); });
 
-// Obtain the namefile
+// audioFile to jsonFile (replace extension)
 function getJsonFile(audioFile) {
     var nameFile = audioFile.split('.').slice(0, -1).join('.')
     return `${nameFile}.json`
 }
 
-// Displays events on the console.
+// Events handling
 function onEvent(name, event, audioFile) {
-    if (name == 'Data:') {
-        //console.log(name);
+    if (name == 'Data') {
         let data = JSON.stringify(event, null, 2);
         let jsonFile = getJsonFile(audioFile);
         fs.writeFileSync('json/' + jsonFile, data);
     }
     else {
-        //console.log(name);
+        console.log(name, event, audioFile);
     }
 }
