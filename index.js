@@ -1,6 +1,9 @@
 'use strict';
 var express = require('express');
 var app = express();
+const path = require('path');
+
+// IBM STT init and config
 const { IamAuthenticator } = require('ibm-watson/auth');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const fs = require('fs');
@@ -22,45 +25,29 @@ const params = {
     speakerLabels: true
 };
 
-// create the stream
+// Create the stream
 const recognizeStream = speechToText.recognizeUsingWebSocket(params);
-
-// pipe in some audio
-fs.createReadStream(audioFile).pipe(recognizeStream);
-
-// json file cofig
 var audioFile = 'sample.mp3'
-var nameFile = audioFile.split('.').slice(0, -1).join('.')
-var jsonFile = `${nameFile}.json`
+fs.createReadStream('audios/' + audioFile).pipe(recognizeStream)
+recognizeStream.on('data', function(event) { onEvent('Data:', event, audioFile); });
+recognizeStream.on('error', function(event) { onEvent('Error:', event, audioFile); });
+recognizeStream.on('close', function(event) { onEvent('Close:', event, audioFile); });
 
-
-/*
-// these two lines of code will only work if `objectMode` is `false`
-// pipe out the transcription to a file
-recognizeStream.pipe(fs.createWriteStream('transcription.txt'));
-// get strings instead of Buffers from `data` events
-recognizeStream.setEncoding('utf8');
-*/
-
-recognizeStream.on('data', function (event) {
-    onEvent('Data:', event);
-});
-
-recognizeStream.on('error', function (event) {
-    onEvent('Error:', event);
-});
-
-/*
-recognizeStream.on('close', function (event) {
-  onEvent('Close:', event);
-});*/
+// Obtain the namefile
+function getJsonFile(audioFile) {
+    var nameFile = audioFile.split('.').slice(0, -1).join('.')
+    return `${nameFile}.json`
+}
 
 // Displays events on the console.
-
-function onEvent(name, event) {
-    let data = JSON.stringify(event, null, 2);
-    fs.writeFile(jsonFile, data, (err) => {
-        if (err) throw err;
-        console.log(`${jsonFile} was saved successfully`);
-    });
+function onEvent(name, event, audioFile) {
+    if (name == 'Data:') {
+        //console.log(name);
+        let data = JSON.stringify(event, null, 2);
+        let jsonFile = getJsonFile(audioFile);
+        fs.writeFileSync('json/' + jsonFile, data);
+    }
+    else {
+        //console.log(name);
+    }
 }
