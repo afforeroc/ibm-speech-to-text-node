@@ -498,12 +498,28 @@
         }
       ],
       "keywords_result": {
-        "buenas": [
+        "a nivel nacional ": [
           {
-            "start_time": 23.42,
-            "end_time": 24.28,
-            "confidence": 0.98,
-            "normalized_text": "buenas"
+            "start_time": 27.61,
+            "end_time": 28.36,
+            "confidence": 1,
+            "normalized_text": "a nivel nacional"
+          }
+        ],
+        "grabada y monitoreada": [
+          {
+            "start_time": 19.45,
+            "end_time": 20.43,
+            "confidence": 1,
+            "normalized_text": "grabada y monitoreada"
+          }
+        ],
+        "núcleo familiar": [
+          {
+            "start_time": 15,
+            "end_time": 15.84,
+            "confidence": 0.783,
+            "normalized_text": "núcleo familiar"
           }
         ]
       }

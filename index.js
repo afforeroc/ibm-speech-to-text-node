@@ -3,6 +3,20 @@ var express = require('express');
 var app = express();
 const path = require('path');
 const fs = require('fs');
+var XLSX = require('xlsx')
+
+var workbook = XLSX.readFile('basekeywords.xlsx');
+var sheet_name_list = workbook.SheetNames;
+var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+//console.log(xlData);
+
+var basekeywords = [];
+for (const idx in xlData) {
+    basekeywords.push(xlData[idx].keyword)
+    //console.log(xlData[idx].keyword);
+}
+
+console.log(basekeywords)
 
 // IBM STT init and config
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -19,7 +33,7 @@ const params = {
     objectMode: true,
     contentType: 'audio/mp3',
     model: 'es-CO_NarrowbandModel',
-    keywords: ['buenas', 'bancolombia', 'alianza'],
+    keywords: basekeywords,
     keywordsThreshold: 0.5,
     maxAlternatives: 3,
     speakerLabels: true
@@ -27,11 +41,25 @@ const params = {
 
 // Create the stream
 const recognizeStream = speechToText.recognizeUsingWebSocket(params);
+
+// IBM STT processing with an audio file
 var audioFile = 'sample.mp3'
 fs.createReadStream('audios/' + audioFile).pipe(recognizeStream)
 recognizeStream.on('data', function(event) { onEvent('Data', event, audioFile); });
 recognizeStream.on('error', function(event) { onEvent('Error', event, audioFile); });
 recognizeStream.on('close', function(event) { onEvent('Close', event, audioFile); });
+
+// IBM STT processing with various audio files from a folder
+/*
+var audiosFiles = fs.readdirSync('audios/');
+for (const idx in audiosFiles) {
+    let audioFile = audiosFiles[idx];
+    console.log(audioFile);
+    fs.createReadStream('audios/' + audioFile).pipe(recognizeStream)
+    recognizeStream.on('data', function(event) { onEvent('Data', event, audioFile); });
+    recognizeStream.on('error', function(event) { onEvent('Error', event, audioFile); });
+    recognizeStream.on('close', function(event) { onEvent('Close', event, audioFile); });
+}*/
 
 // audioFile to jsonFile (replace extension)
 function getJsonFile(audioFile) {
