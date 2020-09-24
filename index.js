@@ -9,14 +9,11 @@ var XLSX = require('xlsx')
 var workbook = XLSX.readFile('basekeywords.xlsx');
 var sheet_name_list = workbook.SheetNames;
 var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-//console.log(xlData);
 
 var basekeywords = [];
 for (const idx in xlData) {
     basekeywords.push(xlData[idx].keyword)
-    //console.log(xlData[idx].keyword);
 }
-//console.log(basekeywords)
 
 // IBM STT init and config
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -29,8 +26,7 @@ const speechToText = new SpeechToTextV1({
     serviceUrl: 'https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/0ab13aa8-b4ae-4f59-a836-8c2b7f9eaba8',
 });
 
-
-// using RECOGNIZE
+// Using RECOGNIZE - Various audiofiles
 var audiosFiles = fs.readdirSync('audios/');
 for (const i in audiosFiles) {
     let audioFile = audiosFiles[i];
@@ -54,8 +50,7 @@ for (const i in audiosFiles) {
     });
 }
 
-
-// Only audio file
+// Using RECOGNIZE - Single audiofile
 /*
 const params = {
     audio: fs.createReadStream('audios/' + audioFile),
@@ -77,7 +72,7 @@ speechToText.recognize(params)
 });
 */
 
-// using WEBSOCKETS
+// Using WEBSOCKETS - Single audiofile
 /*
 const params = {
     objectMode: true,
