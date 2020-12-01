@@ -12,7 +12,7 @@
     * path: ^0.12.7
 
 ### 0. Pre-requisites
-0.1 Get a [IBM Cloud account](https://cloud.ibm.com/login).
+Get a [IBM Cloud account](https://cloud.ibm.com/login).
 
 ### 1. Install NodeJS and NPM
 1.1 Install [NodeJS](https://nodejs.org/en/).
