@@ -1,4 +1,5 @@
 'use strict';
+
 // Libraries
 const path = require('path');
 const fs = require('fs');
@@ -39,7 +40,7 @@ if (audioFiles.length > 0) {
         }
     }
 } else {
-    console.log('Error: There are not files in audios folder')
+    console.log('Error: There are not files in audios/ folder')
 }
 
 
@@ -62,7 +63,7 @@ function getParams(comProtocol, audioPathfile) {
 }
 
 
-// Using STT RECOGNIZE
+// Using STT Recognize
 function sttRecognize(params, audioPathfile) {
     let audioFile = path.parse(audioPathfile).base;
     speechToText.recognize(params)
@@ -77,7 +78,7 @@ function sttRecognize(params, audioPathfile) {
 }
 
 
-// Using STT Web Sockets RECOGNIZE
+// Using STT WebSockets
 function sttWebSockets(params, audioPathfile) {
     let audioFile = path.parse(audioPathfile).base;
     const recognizeStream = speechToText.recognizeUsingWebSocket(params);
@@ -88,7 +89,7 @@ function sttWebSockets(params, audioPathfile) {
 }
 
 
-// Auxiliar function to STT WebSockets
+// Auxiliar function for STT WebSockets
 function onEvent(name, event, audioFile) {
     if (name == 'Data') {
         let dataJSON = JSON.stringify(event, null, 2);
