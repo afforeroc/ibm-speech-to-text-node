@@ -4,17 +4,15 @@
 
 ### 0. System requirements
 * OS: WSL/Ubuntu 20.04 LTS
-* NodeJS version >= v10.19.0
+* NodeJS: v10.19.0
 * NodeJS dependencies.
-```
-"fs": "0.0.1-security"
-"fs-extra": "^9.0.1"
-"ibm-watson": "^5.7.1"
-"path": "^0.12.7"
-```
+    * fs: 0.0.1-security
+    * fs-extra: ^9.0.1
+    * ibm-watson: ^5.7.1
+    * path: ^0.12.7
 
-### 1. Install NodeJS, NPM and nodemon
-1.1 Install [Node.js](https://nodejs.org/en/).
+### 1. Install NodeJS and NPM
+1.1 Install [NodeJS](https://nodejs.org/en/).
 ```
 sudo apt install nodejs
 ```
