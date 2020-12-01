@@ -9,9 +9,9 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({
-        apikey: 'G-XvoHRPvKMmehHE8HlIWesjbQw0cx5jrgswse3kQHt8',
+        apikey: '<your-apikey>',
     }),
-    serviceUrl: 'https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/a4d01b0b-ef73-43b7-b27a-2a8c5e0264f0',
+    serviceUrl: '<your-serviceUrl>',
 });
 
 
@@ -41,7 +41,6 @@ if (audioFiles.length > 0) {
 } else {
     console.log('Error: There are not files in audios folder')
 }
-
 
 
 // Get STT params according with a communication protocol
@@ -77,6 +76,7 @@ function sttRecognize(params, audioPathfile) {
     });
 }
 
+
 // Using STT Web Sockets RECOGNIZE
 function sttWebSockets(params, audioPathfile) {
     let audioFile = path.parse(audioPathfile).base;
@@ -86,6 +86,7 @@ function sttWebSockets(params, audioPathfile) {
     recognizeStream.on('error', function(event) { onEvent('Error', event, audioFile); });
     recognizeStream.on('close', function(event) { onEvent('Close', event, audioFile); });
 }
+
 
 // Auxiliar function to STT WebSockets
 function onEvent(name, event, audioFile) {
@@ -98,6 +99,7 @@ function onEvent(name, event, audioFile) {
     }
 }
 
+
 // Save JSON file with filename of audiofile
 function saveJSONFile(audioFile, dataJSON) {
     let filename = audioFile.split('.').slice(0, -1).join('.');
@@ -105,6 +107,7 @@ function saveJSONFile(audioFile, dataJSON) {
     fs.writeFileSync('json/' + jsonFile, dataJSON);
     console.log(`${jsonFile} file was saved`);
 }
+
 
 // Move file
 function moveFile(source, destination, file) {
