@@ -1,31 +1,25 @@
 {
-  "name": "ibm-stt-express-demo",
+  "name": "ibm-speech-to-text-node",
   "version": "1.0.0",
-  "description": "IBM STT demonstration using Express (Node.js)",
-  "main": "index.js",
+  "description": "IBM Speech to Text using NodeJS",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/afforeroc/ibm-stt-express-demo.git"
+    "url": "git+https://github.com/afforeroc/ibm-speech-to-text-node.git"
   },
-  "keywords": [
-    "IBM",
-    "STT",
-    "Node",
-    "Express"
-  ],
-  "author": "Andres Forero",
-  "license": "ISC",
+  "author": "Andres Felipe Forero Correa",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/afforeroc/ibm-stt-express-demo/issues"
+    "url": "https://github.com/afforeroc/ibm-speech-to-text-node/issues"
   },
-  "homepage": "https://github.com/afforeroc/ibm-stt-express-demo#readme",
+  "homepage": "https://github.com/afforeroc/ibm-speech-to-text-node#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "ibm-watson": "^5.7.0",
-    "node-xlsx": "^0.15.0",
-    "xlsx": "^0.16.7"
+    "fs": "0.0.1-security",
+    "fs-extra": "^9.0.1",
+    "ibm-watson": "^5.7.1",
+    "path": "^0.12.7"
   }
 }
