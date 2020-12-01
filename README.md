@@ -45,16 +45,16 @@ $ npm install
 3.2 Put your target audios inside of `audios` folder.
 
 3.3 Put your IBM Speech to Text credencials inside of `app.js`.
-```
+<pre>
 const { IamAuthenticator } = require('ibm-watson/auth');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({
-        apikey: `<your-apikey>`,
+        apikey: <b>'&ltyour-apikey&gt'</b>,
     }),
-    serviceUrl: `<your-serviceUrl>`,
+    serviceUrl: <b>'&ltyour-serviceUrl&gt'</b>,
 });
-```
+</pre>
 
 3.4 Finally, run the app.
 ```
