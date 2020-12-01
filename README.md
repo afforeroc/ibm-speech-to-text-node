@@ -14,29 +14,29 @@
 ### 1. Install NodeJS and NPM
 1.1 Install [NodeJS](https://nodejs.org/en/).
 ```
-sudo apt install nodejs
+$ sudo apt install nodejs
 ```
 ```
-nodejs --version
+$ nodejs --version
 ```
 
 1.2 Install [NPM](https://www.npmjs.com/).
 ```
-sudo apt install npm
+$ sudo apt install npm
 ```
 ```
-npm --version
+$ npm --version
 ```
 
 ### 2. Install dependencies
 2.1 Go to root folder of app.
 ```
-cd ibm-speech-to-text-node/
+$ cd ibm-speech-to-text-node/
 ```
 
 2.2 Install dependencies.
 ```
-npm install
+$ npm install
 ```
 
 ### 3. Run the app
@@ -50,15 +50,15 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
 const speechToText = new SpeechToTextV1({
     authenticator: new IamAuthenticator({
-        apikey: '<your-apikey>',
+        apikey: `<your-apikey>`,
     }),
-    serviceUrl: '<your-serviceUrl>',
+    serviceUrl: `<your-serviceUrl>`,
 });
 ```
 
 3.4 Finally, run the app.
 ```
-node app.js
+$ node app.js
 ```
 
 3.5 If need stop the app use: <kbd>ctrl</kbd> + <kbd>C</kbd>.
